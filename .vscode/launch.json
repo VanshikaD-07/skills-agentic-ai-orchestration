@@ -3,16 +3,16 @@
   "configurations": [
     {
       "name": "Run Project Pulse Dashboard",
-      "type": "python",
+      "type": "node",
       "request": "launch",
       "runtimeExecutable": "python3",
       "args": [
         "-m",
         "http.server",
-        "5500"
+        "8000"
       ],
       "cwd": "${workspaceFolder}/app",
-      "console": "internalConsole",
+      "console": "integratedTerminal",
       "serverReadyAction": {
         "pattern": "Serving HTTP on .* port ([0-9]+)",
         "uriFormat": "http://localhost:%s/index.html",

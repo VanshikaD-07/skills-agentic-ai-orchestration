@@ -1,0 +1,39 @@
+{
+  "projects": [
+    {
+      "name": "Launch Readiness",
+      "owner": "Mona",
+      "status": "active",
+      "recentActivity": "Final checklist completed and ready for review.",
+      "priority": "high"
+    },
+    {
+      "name": "Accessibility Audit",
+      "owner": "Priya",
+      "status": "at-risk",
+      "recentActivity": "Color contrast issues logged for follow-up.",
+      "priority": "high"
+    },
+    {
+      "name": "Data Sync Cleanup",
+      "owner": "Jordan",
+      "status": "paused",
+      "recentActivity": "Waiting on API contract updates before resuming.",
+      "priority": "medium"
+    },
+    {
+      "name": "Mobile Layout Tuning",
+      "owner": "Elena",
+      "status": "active",
+      "recentActivity": "Responsive spacing adjustments merged today.",
+      "priority": "medium"
+    },
+    {
+      "name": "Archive Migration",
+      "owner": "Sam",
+      "status": "completed",
+      "recentActivity": "Legacy content migration finished last week.",
+      "priority": "low"
+    }
+  ]
+}

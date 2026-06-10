@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Pulse</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="dashboard">
+    <header class="dashboard-header">
+      <h1>Project Pulse</h1>
+      <p>Current project status, activity, and priority at a glance.</p>
+    </header>
+
+    <section aria-labelledby="project-list-heading">
+      <h2 id="project-list-heading">Projects</h2>
+      <div id="project-grid" class="project-grid" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <script>
+    const projectGrid = document.getElementById('project-grid');
+
+    const defaultText = (value) => {
+      const trimmed = typeof value === 'string' ? value.trim() : '';
+      return trimmed || 'Not provided';
+    };
+
+    const isValidProject = (project) => {
+      return project && typeof project === 'object' && ['name', 'owner', 'status', 'recentActivity', 'priority']
+        .every((field) => typeof project[field] === 'string');
+    };
+
+    const renderProjects = (projects) => {
+      if (!Array.isArray(projects) || projects.length === 0) {
+        projectGrid.innerHTML = '<p>No projects available.</p>';
+        return;
+      }
+
+      projectGrid.innerHTML = projects.map((project) => {
+        const name = defaultText(project.name);
+        const owner = defaultText(project.owner);
+        const status = defaultText(project.status);
+        const recentActivity = defaultText(project.recentActivity);
+        const priority = defaultText(project.priority);
+
+        return `
+          <article class="project-card">
+            <header class="project-header">
+              <h3>${name}</h3>
+              <p>Owner: ${owner}</p>
+            </header>
+            <p class="project-status">Status: ${status}</p>
+            <p class="project-activity">Recent activity: ${recentActivity}</p>
+            <p class="project-priority">Priority: ${priority}</p>
+          </article>
+        `;
+      }).join('');
+    };
+
+    fetch('project-data.json')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Unable to load project data (${response.status})`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const projects = Array.isArray(data?.projects) ? data.projects.filter(isValidProject) : [];
+        renderProjects(projects);
+      })
+      .catch((error) => {
+        projectGrid.innerHTML = `<p>Unable to load project data: ${error.message}</p>`;
+      });
+  </script>
+</body>
+</html>

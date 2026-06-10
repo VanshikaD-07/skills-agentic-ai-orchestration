@@ -1,0 +1,179 @@
+:root {
+  --bg-color: #f4f6f8;
+  --card-bg: #ffffff;
+  --text-primary: #212b36;
+  --text-secondary: #637381;
+  --border-color: #dfe3e8;
+  --primary-color: #0056b3;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+  
+  --status-active-bg: #e6f4ea;
+  --status-active-text: #1e8e3e;
+  --status-paused-bg: #fff0e0;
+  --status-paused-text: #e37400;
+  --status-completed-bg: #e8f0fe;
+  --status-completed-text: #1a73e8;
+  --status-at-risk-bg: #fce8e6;
+  --status-at-risk-text: #d93025;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+/* Dashboard Container */
+.dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Header spanning full width */
+.dashboard > h1, 
+.dashboard-header {
+  grid-column: 1 / -1;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  color: var(--text-primary);
+}
+
+/* Project Card */
+.project-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.project-card:focus-within {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Header (Name & Owner) */
+.project-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1rem;
+}
+
+.project-header h2,
+.project-header .project-name {
+  font-size: 1.25rem;
+  margin: 0;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.project-header .project-owner {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+/* Status Badge */
+.project-status {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+/* Dynamic classes/attributes for status styling */
+.project-status.active, .project-status[data-status="active" i] { background-color: var(--status-active-bg); color: var(--status-active-text); }
+.project-status.paused, .project-status[data-status="paused" i] { background-color: var(--status-paused-bg); color: var(--status-paused-text); }
+.project-status.completed, .project-status[data-status="completed" i] { background-color: var(--status-completed-bg); color: var(--status-completed-text); }
+.project-status.at-risk, .project-status[data-status="at-risk" i], .project-status[data-status="at risk" i] { background-color: var(--status-at-risk-bg); color: var(--status-at-risk-text); }
+
+/* Priority Indicator */
+.project-priority {
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-primary);
+}
+
+.project-priority::before {
+  content: 'P';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  background-color: var(--border-color);
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}
+
+/* Dynamic Priority Styling */
+.project-priority.high::before, .project-priority[data-priority="high" i]::before { background-color: var(--status-at-risk-text); color: white; }
+.project-priority.medium::before, .project-priority[data-priority="medium" i]::before { background-color: var(--status-paused-text); color: white; }
+.project-priority.low::before, .project-priority[data-priority="low" i]::before { background-color: var(--status-active-text); color: white; }
+
+/* Summary */
+.project-summary {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  flex-grow: 1;
+  margin: 0;
+}
+
+/* Recent Activity */
+.project-activity {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  background-color: var(--bg-color);
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  margin: 0;
+  border-left: 4px solid var(--border-color);
+}
+
+/* Accessibility - high contrast focus for interactive elements */
+a:focus, button:focus, input:focus {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 1.5rem 1rem;
+    grid-template-columns: 1fr;
+  }
+}
